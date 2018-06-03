@@ -60,18 +60,20 @@ class BayesianNetwork:
 
     def prob(self, w, m):
         total = 0
-        for pbm in BayesianNetwork.bm:
-            if pbm[1] == m:
-                for pwjbd in BayesianNetwork.wjbd:
-                    if pwjbd[0] == w:
-                        j = pwjbd[1]
+        for pwjbd in BayesianNetwork.wjbd:
+            if pwjbd[0] == w:
+                j = pwjbd[1]
+                b = pwjbd[2]
+                d = pwjbd[3]
+                for pbm in BayesianNetwork.bm:
+                    if pbm[0] == b and pbm[1] == m:
                         for pdm in BayesianNetwork.dm:
-                            if pdm[1] == m:
+                            if pdm[0] == d and pdm[1] == m:
                                 for pjb in BayesianNetwork.jb:
-                                    if pjb[0] == j
-                                    partial = pbm[2] * pwjbd[4] * pdm[2] * pjb[2]
-                                    total += partial
-                                    print(partial, pbm, pwjbd, pdm, pjb)
+                                    if pjb[0] == j:
+                                        partial = pbm[2] * pwjbd[4] * pdm[2] * pjb[2]
+                                        total += partial
+                                        print(partial, pbm, pwjbd, pdm, pjb)
         return total
 
     def __str__(self):
