@@ -36,8 +36,6 @@ class BayesianNetwork:
         [False, False, False, False, .1]
     ]
 
-    def __init__(self):
-
     def prob(self, w, m):
         print('w:', w, '\nm:', m)
         total = 0
