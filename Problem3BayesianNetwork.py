@@ -7,33 +7,32 @@ class BayesianNetwork:
         [True, False, .9],
         [False, False, .1]
     ]
-    dvm = [
-        [True, True, .5],
-        [False, True, .5],
-        [True, False, .5],
-        [False, False, .5]
+    dvfrs = [
+        [True, True, .3],
+        [False, True, .7],
+        [True, False, .9],
+        [False, False, .1]
     ]
-    rsdshg = [
+    ppshg = [
         [True, True, .3],
         [False, True, .7],
         [True, False, .6],
         [False, False, .4],
-        [True, True, .03],
     ]
-    mpp = [
-        [True, True, .3],
-        [False, True, .7],
-        [True, False, .6],
-        [False, False, .4]
+    frsm = [
+        [True, True, .7],
+        [False, True, .3],
+        [True, False, .2],
+        [False, False, .8]
     ]
-    mf = [
+    fm = [
         [True, True, .3],
         [False, True, .7],
         [True, False, .6],
         [False, False, .4]
     ]
 
-    krsdm = [
+    kppm = [
         [True, True, True, .3],
         [False, True, True, .7],
         [True, False, True, .6],
@@ -44,56 +43,64 @@ class BayesianNetwork:
         [False, False, False, .4],
     ]
 
-    def prob(self, w, m):
-        print('w:', w, '\nm:', m)
+    def prob(self):
         retVal = {}
+
         total = 0
-        for pwjbd in BayesianNetwork.wjbd:
-            if pwjbd[0] == w:
-                j = pwjbd[1]
-                b = pwjbd[2]
-                d = pwjbd[3]
-                for pbm in BayesianNetwork.bm:
-                    if pbm[0] == b and pbm[1] == m:
-                        for pdm in BayesianNetwork.dm:
-                            if pdm[0] == d and pdm[1] == m:
-                                for pjb in BayesianNetwork.jb:
-                                    if pjb[0] == j:
-                                        partial = pbm[2] * pwjbd[4] * pdm[2] * pjb[2]
-                                        total += partial
-                                        # print(partial, pbm, pwjbd, pdm, pjb)
-        retVal['A'] = total
+        for fm in BayesianNetwork.fm:
+            if fm[1]:
+                for af in BayesianNetwork.af:
+                    if af[0]:
+                        partial = fm[2] * af[2]
+                        total += partial
+                        print(partial, fm, af)
+        retVal['P(True|True)'] = total
+        print()
         total = 0
-        for pwjbd in BayesianNetwork.wjbd:
-            if pwjbd[0] == w:
-                j = pwjbd[1]
-                b = pwjbd[2]
-                d = pwjbd[3]
-                for pbm in BayesianNetwork.bm:
-                    if pbm[0] == b and pbm[1] == m:
-                        for pdm in BayesianNetwork.dm:
-                            if pdm[0] == d and pdm[1] == m:
-                                for pjb in BayesianNetwork.jb:
-                                    if pjb[0] == j:
-                                        partial = pbm[2] * pwjbd[4] * pdm[2] * pjb[2]
-                                        total += partial
-                                        # print(partial, pbm, pwjbd, pdm, pjb)
-        retVal['DV'] = total
+        for fm in BayesianNetwork.fm:
+            if fm[1]:
+                for af in BayesianNetwork.af:
+                    if af[0] == False:
+                        partial = fm[2] * af[2]
+                        total += partial
+                        print(partial, fm, af)
+        retVal['P[A|M](False|True)'] = total
+        print()
+
         total = 0
-        for pwjbd in BayesianNetwork.wjbd:
-            if pwjbd[0] == w:
-                j = pwjbd[1]
-                b = pwjbd[2]
-                d = pwjbd[3]
-                for pbm in BayesianNetwork.bm:
-                    if pbm[0] == b and pbm[1] == m:
-                        for pdm in BayesianNetwork.dm:
-                            if pdm[0] == d and pdm[1] == m:
-                                for pjb in BayesianNetwork.jb:
-                                    if pjb[0] == j:
-                                        partial = pbm[2] * pwjbd[4] * pdm[2] * pjb[2]
-                                        total += partial
-                                        # print(partial, pbm, pwjbd, pdm, pjb)
+        for dvfrs in BayesianNetwork.dvfrs:
+            if dvfrs[0]:
+                partial = 0
+                for frsm in BayesianNetwork.frsm:
+                    if frsm[0] and frsm[1]:
+                        partial += frsm[2] * dvfrs[2]
+                        print(partial, frsm, dvfrs)
+                total = partial
+                for frsm in BayesianNetwork.frsm:
+                    if frsm[0] == False and frsm[1]:
+                        partial = frsm[2] * dvfrs[2]
+                        print(partial, frsm, dvfrs)
+                total += partial
+        print()
+        retVal['P[DV|M](True|True)'] = total
+        total = 0
+        for dvfrs in BayesianNetwork.dvfrs:
+            if dvfrs[0] == False:
+                partial = 0
+                for frsm in BayesianNetwork.frsm:
+                    if frsm[0] and frsm[1]:
+                        partial += frsm[2] * dvfrs[2]
+                        print(partial, frsm, dvfrs)
+                total = partial
+                for frsm in BayesianNetwork.frsm:
+                    if frsm[0] == False and frsm[1]:
+                        partial = frsm[2] * dvfrs[2]
+                        print(partial, frsm, dvfrs)
+                total += partial
+        print()
+        retVal['P[DV|M](False|True)'] = total
+
+        total = 0
         retVal['K'] = total
         return retVal
 
@@ -104,5 +111,4 @@ class BayesianNetwork:
         return string + '\n***********************************************************************************'
 
 b = BayesianNetwork()
-print('****************************************************************\n', b.prob(False, True), '\n****************************************************************\n')
-print('****************************************************************\n', b.prob(False, False), '\n****************************************************************\n')
+print('****************************************************************\n', b.prob(), '\n****************************************************************\n')
