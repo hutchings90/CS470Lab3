@@ -1,5 +1,3 @@
-from RandomVariable import RandomVariable
-
 class BayesianNetwork:
     bm = [
         [True, True, .42],
@@ -39,24 +37,6 @@ class BayesianNetwork:
     ]
 
     def __init__(self):
-        self.b = [
-            RandomVariable('w', 'Microloan'),
-            RandomVariable('b', 'Start Business'),
-        ]
-        self.d = [
-            RandomVariable('d', 'Debt'),
-            RandomVariable('m', 'Microloan'),
-        ]
-        self.j = [
-            RandomVariable('j', 'Wage-Paying Job'),
-            RandomVariable('b', 'Start Business'),
-        ]
-        self.w = [
-            RandomVariable('w', 'Woman in Poverty'),
-            RandomVariable('j', 'Wage-Paying Job'),
-            RandomVariable('b', 'Start Business'),
-            RandomVariable('d', 'Debt')
-        ]
 
     def prob(self, w, m):
         print('w:', w, '\nm:', m)
@@ -76,12 +56,6 @@ class BayesianNetwork:
                                         total += partial
                                         # print(partial, pbm, pwjbd, pdm, pjb)
         return round(total * 100)
-
-    def __str__(self):
-        string = '** Bayesian Network ***************************************************************'
-        for randomVariable in self.randomVariables:
-            string += '\n' + str(randomVariable)
-        return string + '\n***********************************************************************************'
 
 b = BayesianNetwork()
 print('****************************************************************\n', b.prob(False, True), '\n****************************************************************\n')
