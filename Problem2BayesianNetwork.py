@@ -2,10 +2,10 @@ from RandomVariable import RandomVariable
 
 class BayesianNetwork:
     bm = [
-        [True, True, .9],
-        [False, True, .1],
-        [True, False, .01],
-        [False, False, .99]
+        [True, True, .42],
+        [False, True, .58],
+        [True, False, .3],
+        [False, False, .7]
     ]
     dm = [
         [True, True, .5],
@@ -22,8 +22,8 @@ class BayesianNetwork:
     wjbd = [
         [True, True, True, True, .3],
         [False, True, True, True, .7],
-        [True, False, True, True, .6],
-        [False, False, True, True, .4],
+        [True, False, True, True, .65],
+        [False, False, True, True, .35],
         [True, True, False, True, .65],
         [False, True, False, True, .35],
         [True, False, False, True, 1],
@@ -32,8 +32,8 @@ class BayesianNetwork:
         [False, True, True, False, .9],
         [True, False, True, False, .6],
         [False, False, True, False, .4],
-        [True, True, False, False, .7],
-        [False, True, False, False, .3],
+        [True, True, False, False, .6],
+        [False, True, False, False, .4],
         [True, False, False, False, .9],
         [False, False, False, False, .1]
     ]
@@ -59,6 +59,7 @@ class BayesianNetwork:
         ]
 
     def prob(self, w, m):
+        print('w:', w, '\nm:', m)
         total = 0
         for pwjbd in BayesianNetwork.wjbd:
             if pwjbd[0] == w:
@@ -73,8 +74,8 @@ class BayesianNetwork:
                                     if pjb[0] == j:
                                         partial = pbm[2] * pwjbd[4] * pdm[2] * pjb[2]
                                         total += partial
-                                        print(partial, pbm, pwjbd, pdm, pjb)
-        return total
+                                        # print(partial, pbm, pwjbd, pdm, pjb)
+        return round(total * 100)
 
     def __str__(self):
         string = '** Bayesian Network ***************************************************************'
