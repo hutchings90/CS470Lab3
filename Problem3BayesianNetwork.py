@@ -45,64 +45,64 @@ class BayesianNetwork:
         retVal = []
 
         total = 0
-        for dvfrs in BayesianNetwork.dvfrs:
-            if dvfrs[0]:
-                frs = dvfrs[1]
-                for frsm in BayesianNetwork.frsm:
-                    if frs == frsm[0] and frsm[1]:
-                        partial = dvfrs[2] * frsm[2]
+        for pdvfrs in BayesianNetwork.dvfrs:
+            if pdvfrs[0]:
+                pfrs = pdvfrs[1]
+                for pfrsm in BayesianNetwork.frsm:
+                    if pfrs == pfrsm[0] and pfrsm[1]:
+                        partial = pdvfrs[2] * pfrsm[2]
                         total += partial
-                        # print(total, partial, frs, frsm)
+                        # print(total, partial, pfrs, pfrsm)
         retVal.append({
             'prob': 'P[DV|M](True|True): ',
             'val': total
         })
         total = 0
-        for dvfrs in BayesianNetwork.dvfrs:
-            if dvfrs[0] == False:
-                frs = dvfrs[1]
-                for frsm in BayesianNetwork.frsm:
-                    if frs == frsm[0] and frsm[1]:
-                        partial = dvfrs[2] * frsm[2]
+        for pdvfrs in BayesianNetwork.dvfrs:
+            if pdvfrs[0] == False:
+                pfrs = pdvfrs[1]
+                for pfrsm in BayesianNetwork.frsm:
+                    if pfrs == pfrsm[0] and pfrsm[1]:
+                        partial = pdvfrs[2] * pfrsm[2]
                         total += partial
-                        # print(total, partial, frs, frsm)
+                        # print(total, partial, pfrs, pfrsm)
         retVal.append({
             'prob': 'P[DV|M](False|True)]: ',
             'val': total
         })
         total = 0
-        for af in BayesianNetwork.af:
-            if af[0]:
-                f = af[1]
-                for fm in BayesianNetwork.fm:
-                    if fm[0] == f and fm[1]:
-                        partial = af[2] * fm[2]
+        for paf in BayesianNetwork.af:
+            if paf[0]:
+                pf = paf[1]
+                for pfm in BayesianNetwork.fm:
+                    if pfm[0] == pf and pfm[1]:
+                        partial = paf[2] * pfm[2]
                         total += partial
-                        # print(total, partial, af, fm)
+                        # print(total, partial, paf, pfm)
         retVal.append({
             'prob': 'P[A|M](True|True): ',
             'val': total
         })
         total = 0
-        for af in BayesianNetwork.af:
-            if af[0] == False:
-                f = af[1]
-                for fm in BayesianNetwork.fm:
-                    if fm[0] == f and fm[1]:
-                        partial = af[2] * fm[2]
+        for paf in BayesianNetwork.af:
+            if paf[0] == False:
+                pf = paf[1]
+                for pfm in BayesianNetwork.fm:
+                    if pfm[0] == pf and pfm[1]:
+                        partial = paf[2] * pfm[2]
                         total += partial
-                        # print(total, partial, af, fm)
+                        # print(total, partial, paf, pfm)
         retVal.append({
             'prob': 'P[A|M](False|True): ',
             'val': total
         })
         total = 0
-        for kppm in BayesianNetwork.kppm:
-            if kppm[0] and kppm[2]:
-                pp = kppm[1]
-                for ppshg in BayesianNetwork.ppshg:
-                    if pp == ppshg[0] and ppshg[1]:
-                        partial = kppm[3] * ppshg[2]
+        for pkppm in BayesianNetwork.kppm:
+            if pkppm[0] and pkppm[2]:
+                ppp = pkppm[1]
+                for pppshg in BayesianNetwork.ppshg:
+                    if ppp == pppshg[0] and pppshg[1]:
+                        partial = pkppm[3] * pppshg[2]
                         total += partial
                         # print(total, partial, kppm, ppshg)
         retVal.append({
@@ -110,12 +110,12 @@ class BayesianNetwork:
             'val': total
         })
         total = 0
-        for kppm in BayesianNetwork.kppm:
-            if kppm[0] == False and kppm[2]:
-                pp = kppm[1]
-                for ppshg in BayesianNetwork.ppshg:
-                    if pp == ppshg[0] and ppshg[1]:
-                        partial = kppm[3] * ppshg[2]
+        for pkppm in BayesianNetwork.kppm:
+            if pkppm[0] == False and pkppm[2]:
+                ppp = pkppm[1]
+                for pppshg in BayesianNetwork.ppshg:
+                    if ppp == pppshg[0] and pppshg[1]:
+                        partial = pkppm[3] * pppshg[2]
                         total += partial
                         # print(total, partial, kppm, ppshg)
         retVal.append({
